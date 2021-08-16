@@ -11,9 +11,10 @@ import { ServerComponent } from "./servers/server/server.component";
 import { ServersService } from "./servers/servers.service";
 
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
+import { AuthGuard } from "./auth-guard.service";
 const appRoutes: Routes = [
   //wildcard route
-
+  { path: "", component: HomeComponent },
   {
     path: "users",
     component: UsersComponent,
@@ -21,7 +22,9 @@ const appRoutes: Routes = [
   },
 
   {
-    path: "servers",
+    path: 'servers',
+    //canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
     component: ServersComponent,
     children: [
       { path: ":id", component: ServerComponent },
@@ -29,12 +32,14 @@ const appRoutes: Routes = [
     ],
   },
 
-  { path: "", component: HomeComponent },
+
   { path: "not-found", component: PageNotFoundComponent },
   { path: "**", redirectTo: "/not-found" },
 ];
+
+
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
