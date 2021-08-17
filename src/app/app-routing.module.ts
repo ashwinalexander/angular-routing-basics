@@ -13,6 +13,8 @@ import { ServersService } from "./servers/servers.service";
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
 import { AuthGuard } from "./auth-guard.service";
 import { CanDeactivateGuard } from "./servers/edit-server/can-deactivate-guard.service";
+import { ErrorPageComponent } from "./error-page/error-page.component";
+
 const appRoutes: Routes = [
   //wildcard route
   { path: "", component: HomeComponent },
@@ -34,7 +36,13 @@ const appRoutes: Routes = [
   },
 
 
-  { path: "not-found", component: PageNotFoundComponent },
+  //{ path: "not-found", component: PageNotFoundComponent },
+  {
+    path: "not-found", component: ErrorPageComponent, data: {
+      message:
+        'Page Not Found'
+    }
+  },
   { path: "**", redirectTo: "/not-found" },
 ];
 
